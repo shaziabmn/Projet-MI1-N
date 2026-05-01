@@ -49,7 +49,7 @@ void afficher_symbole(int type) {
         case 3: printf(BOLD_MAGENTA"🦅 "RESET); break;  // Harpie
         case 4: printf(BOLD_YELLOW"💰 "RESET); break;   // Coffre
         case 5: printf(BOLD_RED"🗡  "RESET); break;     // Épée
-        case 6: printf(BOLD_GREEN"🏹 "RESET); break;   // Bâton
+        case 6: printf(BOLD_GREEN"🪃  "RESET); break;   // Bâton
         case 7: printf(BOLD_BLUE"📖 "RESET); break;     // Grimoire
         case 8: printf(BOLD_CYAN"🔪️ "RESET); break;     // Dague
         case 9: printf(BOLD_CYAN"🌌 "RESET); break;     // Portail
@@ -63,7 +63,7 @@ void afficher_legende() {
     printf(BOLD_YELLOW"\n                           ✦ ───────── LÉGENDE ───────── ✦\n\n"RESET);
     
     printf("                  🐍 = Basilic  🧟 = Zombie  🧌 = Troll  🦅= Harpie\n");
-    printf("                  🗡  = Épée  🏹 = Bâton  📖 = Grimoire  🔪 = Dague\n");
+    printf("                  🗡  = Épée  🪃  = Bâton  📖 = Grimoire  🔪 = Dague\n");
     printf("                  🌌 = Portail  🗿 = Totem  💰 = Coffre  ◈ = Caché\n\n");
     
     printf(BOLD_YELLOW"                           ✦ ─────────────────────────── ✦\n\n"RESET);
