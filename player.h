@@ -1,22 +1,30 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+// Gestion des joueurs : initialisation, classes, couleurs, rotation
 
-#define TAILLE_NOM 16
+#include "types.h"
 
+// Couleur ANSI attribuee a chaque joueur selon son indice
+//   J1 = vert, J2 = rouge, J3 = cyan, J4 = jaune
+const char *couleur_joueur(int idx);
 
-typedef struct {
+// Emoji de la classe d'un joueur
+const char *emoji_classe(int classe);
 
-    char nom[TAILLE_NOM];
-    //autres éléments à ajouter pour le joueur 
+// Nom de la classe (pour affichage)
+const char *nom_classe(int classe);
 
-} Joueur;
-
-
-
-// Déclaration des fonctions
+// Demande le nom d'un joueur (avec gestion du buffer trop long)
 void nom_joueur(Joueur *j, int numero);
-int choix_nb_joueur();
-void afficher_joueurs(Joueur *liste, int n);
+
+// Demande noms et assigne classes/positions des joueurs
+void init_joueurs(Jeu *jeu);
+
+// Remet les joueurs a leur depart sans redemander les noms
+void reinit_joueurs_pour_rejouer(Jeu *jeu);
+
+// Passe au joueur actif suivant (tourne en boucle)
+void joueur_suivant(Jeu *jeu);
 
 #endif

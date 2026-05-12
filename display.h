@@ -2,7 +2,9 @@
 #define DISPLAY_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 #define RESET       "\033[0m" // Réinitialise la couleur à la valeur par défaut
@@ -27,7 +29,7 @@
 #define BOLD_WHITE  "\033[1;37m"
 
 // Définition pour effacer l'écran
-#define clrscr() printf("\033[H\033[2J") // Échec lors de l'éxécution (à vérifier)
+#define clrscr() printf("\033[H\033[2J") // (à vérifier)
 
 // Définition de la largeur du terminal pour centrer des éléments à l'écran
 #define LARGEUR_TERMINAL 80
@@ -37,5 +39,10 @@
 void afficher_jeu();
 void afficher_menu();
 
+
 #endif
+
+
+
+
 
