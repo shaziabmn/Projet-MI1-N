@@ -63,19 +63,12 @@ void nom_joueur(Joueur *j, int numero) {
            couleur_joueur(numero - 1), NOM_MAX - 1, REINIT);
 
     while (1) {
-        // E0F : on quitte proprement
-        if (fgets(j->nom, NOM_MAX, stdin) == NULL) { //scanf
+        // EOF : on quitte proprement
+        if (scanf("%15s", j->nom) != 1) {
             printf(ROUGE "  ❌ Saisie annulée. Au revoir !\n");
             exit(0);
         }
-
-        // Supprime le '\n' final, ou vide le buffer si le nom dépasse la taille max
-        int longueur = (int)strlen(j->nom);
-        if (longueur > 0 && j->nom[longueur - 1] == '\n') {
-            j->nom[longueur - 1] = '\0';
-        } else {
-            vider_buffer();
-        }
+        vider_buffer();
 
         // Refuse un nom vide
         if (j->nom[0] == '\0') {

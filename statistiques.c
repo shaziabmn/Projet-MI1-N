@@ -12,14 +12,14 @@ time_t heure_debut = 0;
 
 
 // Enregistre l'heure de début de la manche.
-void chrono_demarrer(void) {
+void chrono_demarrer() {
     heure_debut = time(NULL); // time() retourne le nombre de secondes depuis 1970
 }
 
 
 // Affiche la durée écoulée depuis le début de la manche 
 // Calcule la différence entre l'heure actuelle et heure_debut.
-void chrono_afficher(void) {
+void chrono_afficher() {
     int total    = (int)difftime(time(NULL), heure_debut); // Secondes écoulées
     int minutes  = total / 60;
     int secondes = total % 60;
@@ -154,21 +154,8 @@ void statistiques_afficher_classement(StatJoueur statistiques[], int nb) {
     trier_statistiques(copie, nb);
 
     for (i = 0; i < nb; i++) {
-        const char *medaille = "  ";
-        const char *couleur  = REINIT;
-        if (i == 0) {
-            medaille = "🥇";
-            couleur  = GRAS_JAUNE;
-        } else if (i == 1) {
-            medaille = "🥈";
-            couleur  = GRAS_BLANC;
-        } else if (i == 2) {
-            medaille = "🥉";
-            couleur  = GRAS_ROUGE;
-        }
-
-        printf("              %s%s%s  #%d  %-15s  —  %s%d partie(s)%s  -  %s%d victoire(s)%s\n",
-               couleur, medaille, REINIT, i + 1, copie[i].nom,
+        printf("              #%d  %-15s  —  %s%d partie(s)%s  -  %s%d victoire(s)%s\n",
+               i + 1, copie[i].nom,
                CYAN, copie[i].parties, REINIT,
                BLEU, copie[i].victoires, REINIT);
     }

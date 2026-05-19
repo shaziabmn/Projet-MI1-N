@@ -24,7 +24,7 @@ const char *nom_case(int type) {
     switch (type) {
         case CASE_BASILIC:  return "Basilic 🐍";
         case CASE_ZOMBIE:   return "Zombie 🧟";
-        case CASE_TROLL:    return "Troll 🧌";
+        case CASE_TROLL:    return "Troll 👹";
         case CASE_HARPIE:   return "Harpie 🦅";
         case CASE_COFFRE:   return "Coffre au trésor 💰";
         case CASE_EPEE_FEU: return "Epée de feu 🗡";
@@ -149,7 +149,7 @@ int choisir_arme(Jeu *jeu) {
 
     printf(GRAS_BLANC "                         1️⃣ . Bouclier réfléchissant 🪞 (Basilic 🐍)\n" REINIT);
     printf(GRAS_BLANC "                         2️⃣ . Torche 🔥                 (Zombie 🧟)\n" REINIT);
-    printf(GRAS_BLANC "                         3️⃣ . Hache de pierre 🪓        (Troll 🧌)\n" REINIT);
+    printf(GRAS_BLANC "                         3️⃣ . Hache de pierre 🪓        (Troll 👹)\n" REINIT);
     printf(GRAS_BLANC "                         4️⃣ . Arc long 🏹               (Harpie 🦅)\n" REINIT);
     printf(GRAS_BLANC "                         0️⃣ . Abandonner la partie 🏳\n\n" REINIT);
 

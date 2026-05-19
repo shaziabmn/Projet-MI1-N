@@ -6,7 +6,7 @@
 
   		                   🧙 VOTRE AVENTURIER
   		──────────────────────────────────────────────────────────
-   		       Guerrier  ⚔️   →  cherche l'Épée de feu  🗡
+   		       Guerrier  ⚔️   →  cherche l'Épée de feu   🗡
    		       Ranger    🏹   →  cherche le Bâton       🪃
    		       Magicien  🪄   →  cherche le Grimoire    📖
    		       Voleur    🥷   →  cherche la Dague       🔪
@@ -18,10 +18,10 @@
 
   		    🪞 Bouclier réfléchissant  →  bat le Basilic 🐍
    		    🔥 Torche                  →  bat le Zombie  🧟
-    		    🪓 Hache de pierre         →  bat le Troll   🧌
+    		    🪓 Hache de pierre         →  bat le Troll   👹
     		    🏹 Arc long                →  bat la Harpie  🦅
 
-  		2. Choisissez une direction : Haut ⬆️/ Bas ⬇️/ Gauche ⬅️/ Droite ➡️
+  		2. Choisissez une direction : Haut ⬆️ / Bas ⬇️ / Gauche ⬅️ / Droite ➡️
 
   		3. La case se révèle :
 
@@ -32,7 +32,7 @@
        		Arme d'un autre         →  rien, continuez
        		🌌 Portail              →  prochain mouvement libre
        		🗿 Totem                →  échangez une case, fin du tour
-       		Bloqué                  →  fin du tour
+       		🚧 Bloqué               →  fin du tour
 
 
                          		🏆 VICTOIRE

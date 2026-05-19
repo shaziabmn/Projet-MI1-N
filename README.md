@@ -1,4 +1,4 @@
-# Memon RPG 
+# Memo-RPG — Le Labyrinthe du Donjon
 
 Jeu de plateau en C jouable au terminal (2 à 4 joueurs), mélangeant mémoire et
 choix tactique. Chaque joueur incarne un aventurier d'une classe (Guerrier,
@@ -9,7 +9,7 @@ Réalisé par Cyrine, Marame et Shazia.
 
 ## Compilation
 
-Le projet utilise un `Makefile`
+Le projet utilise un `Makefile` 
 
 ```sh
 make            # Compile le binaire memorpg
@@ -30,8 +30,7 @@ Depuis le menu principal :
 
 ## Règles
 
-Les règles complètes sont dans [`regles.txt`](regles.txt) (accessibles aussi
-depuis le menu du jeu).
+Les règles complètes sont dans [`regles.txt`](regles.txt) 
 
 ## Fichiers
 
@@ -42,6 +41,7 @@ depuis le menu du jeu).
 | `joueur.c/.h`      | Joueurs : noms, classes, positions, saisie sécurisée  |
 | `plateau.c/.h`     | Plateau 5×5 : initialisation, affichage, mélange      |
 | `tour.c/.h`        | Logique d'un tour (arme, déplacement, résolution)     |
-| `statistiques.c/.h`| Statistiques dans `joueurs.dat`, chronomètre          |
+| `statistiques.c/.h`| Persistance des stats dans `joueurs.dat`, chronomètre |
 | `structures.h`     | Types, constantes, énumérations                       |
 | `regles.txt`       | Texte des règles affiché en jeu                       |
+

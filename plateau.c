@@ -16,7 +16,7 @@ const char *emoji_case(int type, int revelee) {
     switch (type) {
         case CASE_BASILIC:  return GRAS_ROUGE   "🐍 " REINIT;
         case CASE_ZOMBIE:   return GRAS_VERT    "🧟 " REINIT;
-        case CASE_TROLL:    return GRAS_JAUNE   "🧌 " REINIT;
+        case CASE_TROLL:    return GRAS_JAUNE   "👹 " REINIT;
         case CASE_HARPIE:   return GRAS_MAGENTA "🦅 " REINIT;
         case CASE_COFFRE:   return GRAS_JAUNE   "💰 " REINIT;
         case CASE_EPEE_FEU: return GRAS_ROUGE   "🗡  " REINIT;
@@ -77,7 +77,7 @@ void init_plateau(Jeu *jeu) {
 void afficher_legende_plateau(void) {
     printf(GRAS_JAUNE"\n                           ✦ ───────── LÉGENDE ───────── ✦\n\n"REINIT);
 
-    printf(           "                  🐍 = Basilic  🧟 = Zombie   🧌 = Troll  🦅= Harpie\n");
+    printf(           "                  🐍 = Basilic  🧟 = Zombie   👹 = Troll  🦅= Harpie\n");
     printf(           "                  🗡  = Épée  🪃  = Bâton  📖 = Grimoire  🔪 = Dague\n");
     printf(           "                  🌌 = Portail  🗿 = Totem    💰 = Coffre  ◈ = Caché\n\n");
 
