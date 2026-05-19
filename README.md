@@ -9,7 +9,7 @@ Réalisé par Cyrine, Marame et Shazia.
 
 ## Compilation
 
-Le projet utilise un `Makefile` et `gcc` (avec `-Wall -Wextra`).
+Le projet utilise un `Makefile`
 
 ```sh
 make            # Compile le binaire memorpg
