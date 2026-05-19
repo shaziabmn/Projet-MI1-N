@@ -1,0 +1,43 @@
+
+   	    	                 	🎯 BUT DU JEU
+  		──────────────────────────────────────────────────────────
+  		Soyez le premier à trouver VOTRE arme antique ET un coffre !
+
+
+  		                   🧙 VOTRE AVENTURIER
+  		──────────────────────────────────────────────────────────
+   		       Guerrier  ⚔️   →  cherche l'Épée de feu  🗡
+   		       Ranger    🏹   →  cherche le Bâton       🪃
+   		       Magicien  🪄   →  cherche le Grimoire    📖
+   		       Voleur    🥷   →  cherche la Dague       🔪
+
+
+   	                    	      🔄 À CHAQUE TOUR
+ 		 ──────────────────────────────────────────────────────────
+ 		 1. Choisissez une arme :
+
+  		    🪞 Bouclier réfléchissant  →  bat le Basilic 🐍
+   		    🔥 Torche                  →  bat le Zombie  🧟
+    		    🪓 Hache de pierre         →  bat le Troll   🧌
+    		    🏹 Arc long                →  bat la Harpie  🦅
+
+  		2. Choisissez une direction : Haut ⬆️/ Bas ⬇️/ Gauche ⬅️/ Droite ➡️
+
+  		3. La case se révèle :
+
+       		Monstre + bonne arme    →  vous survivez, continuez !
+       		Monstre + mauvaise arme →  vous mourez, retour au départ
+       		💰 Coffre               →  coffre obtenu !
+       		Votre arme antique      →  arme obtenue !
+       		Arme d'un autre         →  rien, continuez
+       		🌌 Portail              →  prochain mouvement libre
+       		🗿 Totem                →  échangez une case, fin du tour
+       		Bloqué                  →  fin du tour
+
+
+                         		🏆 VICTOIRE
+  		──────────────────────────────────────────────────────────
+  		Trouvez VOTRE arme antique ET un coffre avant les autres !
+
+  		💡 ASTUCE : mémorisez les cases des autres joueurs ! 🧠
+
