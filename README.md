@@ -1,4 +1,4 @@
-# Memo-RPG — Le Labyrinthe du Donjon
+# Memon RPG 
 
 Jeu de plateau en C jouable au terminal (2 à 4 joueurs), mélangeant mémoire et
 choix tactique. Chaque joueur incarne un aventurier d'une classe (Guerrier,
