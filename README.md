@@ -42,11 +42,6 @@ depuis le menu du jeu).
 | `joueur.c/.h`      | Joueurs : noms, classes, positions, saisie sécurisée  |
 | `plateau.c/.h`     | Plateau 5×5 : initialisation, affichage, mélange      |
 | `tour.c/.h`        | Logique d'un tour (arme, déplacement, résolution)     |
-| `statistiques.c/.h`| Persistance des stats dans `joueurs.dat`, chronomètre |
+| `statistiques.c/.h`| Statistiques dans `joueurs.dat`, chronomètre          |
 | `structures.h`     | Types, constantes, énumérations                       |
 | `regles.txt`       | Texte des règles affiché en jeu                       |
-
-## Prérequis
-
-- Un terminal compatible UTF-8 et couleurs ANSI (la plupart des terminaux modernes le sont)
-- `gcc` et `make`
