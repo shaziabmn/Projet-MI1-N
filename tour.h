@@ -23,6 +23,6 @@ int est_monstre(int type);
 int est_arme_antique(int type);
 
 // Joue un tour complet pour le joueur actuel
-int jouer_tour(Jeu *jeu);
+void jouer_tour(Jeu *jeu);
 
 #endif

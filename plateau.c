@@ -78,7 +78,7 @@ void afficher_legende_plateau(void) {
     printf(GRAS_JAUNE"\n                           ✦ ───────── LÉGENDE ───────── ✦\n\n"REINIT);
 
     printf(           "                  🐍 = Basilic  🧟 = Zombie   👹 = Troll  🦅= Harpie\n");
-    printf(           "                  🗡  = Épée  🪃  = Bâton  📖 = Grimoire  🔪 = Dague\n");
+    printf(           "                  🗡  = Épée  🪃  = Bâton   📖 = Grimoire  🔪 = Dague\n");
     printf(           "                  🌌 = Portail  🗿 = Totem    💰 = Coffre  ◈ = Caché\n\n");
 
     printf(GRAS_JAUNE"                           ✦ ─────────────────────────── ✦\n\n"REINIT);
@@ -176,8 +176,7 @@ void afficher_plateau(Jeu *jeu) {
 
     // J2 toujours en dessous de la colonne 2
     if (jeu->nb_joueurs >= 2) {
-        printf("                                        %s%s\n" REINIT,
-               couleur_joueur(1), emoji_classe(jeu->joueurs[1].classe));
+        printf("                                        %s%s\n" REINIT, couleur_joueur(1), emoji_classe(jeu->joueurs[1].classe));
     } else {
         printf("\n");
     }
@@ -212,7 +211,7 @@ void afficher_plateau(Jeu *jeu) {
             statut_arme = "        ";
         }
 
-        printf("    %s[J%d]%s %s%-10s  cherche %s.  %s  %s\n",
+        printf("    %s[J%d]%s %s%-10s  cherche %s  %s  %s\n",
                couleur_joueur(i), i + 1, REINIT,
                emoji_classe(jou->classe), jou->nom,
                cible_emoji,

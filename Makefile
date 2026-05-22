@@ -1,19 +1,23 @@
-TARGET = memorpg
-CC     = gcc
-CFLAGS = -Wall -Wextra -g
+memorpg : main.o joueur.o plateau.o tour.o statistiques.o affichage.o
+	gcc main.o joueur.o plateau.o tour.o statistiques.o affichage.o -o memorpg
 
-SRCS = main.c plateau.c tour.c statistiques.c affichage.c joueur.c
-OBJS = $(SRCS:.c=.o)
+main.o : main.c structures.h affichage.h joueur.h plateau.h tour.h statistiques.h
+	gcc -c main.c
 
-.PHONY: all clean
+joueur.o : joueur.c structures.h affichage.h joueur.h
+	gcc -c joueur.c
 
-all: $(TARGET)
+plateau.o : plateau.c structures.h affichage.h statistiques.h joueur.h plateau.h
+	gcc -c plateau.c
 
-$(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET)
+tour.o : tour.c structures.h affichage.h joueur.h tour.h plateau.h
+	gcc -c tour.c
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+statistiques.o : statistiques.c structures.h affichage.h statistiques.h
+	gcc -c statistiques.c
 
-clean:
-	rm -f $(OBJS) $(TARGET) *.dat
+affichage.o : affichage.c affichage.h joueur.h
+	gcc -c affichage.c
+
+clean :
+	rm -f *.o memorpg

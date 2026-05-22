@@ -1,9 +1,8 @@
 # Memo-RPG — Le Labyrinthe du Donjon
 
-Jeu de plateau en C jouable au terminal (2 à 4 joueurs), mélangeant mémoire et
-choix tactique. Chaque joueur incarne un aventurier d'une classe (Guerrier,
-Ranger, Magicien, Voleur) et doit retrouver SON arme antique ainsi qu'un coffre
-avant les autres, en révélant les cases d'un plateau 5×5.
+Le but du jeu pour chacun des aventuriers (entre 2 et 4 par partie) 
+est de parcourir le labyrinthe du donjon à la recherche d’un coffre au trésor
+et d’une arme antique, tout en terrassant les monstres ennemis qui s’y trouvent.
 
 Réalisé par Cyrine, Marame et Shazia.
 
@@ -13,7 +12,7 @@ Le projet utilise un `Makefile`
 
 ```sh
 make            # Compile le binaire memorpg
-make clean      # Supprime les .o, le binaire et le fichier de statistiques
+make clean      # Supprime les .o et le binaire
 ```
 
 ## Lancement

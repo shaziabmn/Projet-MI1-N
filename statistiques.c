@@ -20,7 +20,7 @@ void chrono_demarrer() {
 // Affiche la durée écoulée depuis le début de la manche 
 // Calcule la différence entre l'heure actuelle et heure_debut.
 void chrono_afficher() {
-    int total    = (int)difftime(time(NULL), heure_debut); // Secondes écoulées
+    int total    = time(NULL) - heure_debut; // Secondes écoulées
     int minutes  = total / 60;
     int secondes = total % 60;
     printf("      Durée de la manche : %02d:%02d\n", minutes, secondes);
@@ -87,7 +87,9 @@ int statistiques_trouver_ou_creer(StatJoueur statistiques[], int *nb, char *nom)
     strcpy(statistiques[*nb].nom, nom);
     statistiques[*nb].parties   = 0;
     statistiques[*nb].victoires = 0;
-    return (*nb)++;
+    int idx = *nb;   // On garde l'ancienne valeur (indice du nouveau joueur)
+    (*nb)++;         // On augmente le compteur
+    return idx;
 }
 
 
@@ -105,7 +107,7 @@ void statistiques_enregistrer_partie(StatJoueur statistiques[], int *nb,
     }
 
     // +1 victoire pour le gagnant (s'il y en a un)
-    if (nom_gagnant != NULL && strcmp(nom_gagnant, NOM_AUCUN_GAGNANT) != 0) {
+    if (nom_gagnant != NULL) {
         idx = statistiques_trouver_ou_creer(statistiques, nb, nom_gagnant);
         if (idx >= 0) {
             statistiques[idx].victoires++;
@@ -117,7 +119,7 @@ void statistiques_enregistrer_partie(StatJoueur statistiques[], int *nb,
 
 
 // Trie le tableau par victoires décroissantes (tri à bulles)
-void trier_statistiques(StatJoueur statistiques[], int nb) {
+void statistiques_trier(StatJoueur statistiques[], int nb) {
     int i, j;
     StatJoueur tmp;
     for (i = 0; i < nb - 1; i++) {
@@ -132,7 +134,7 @@ void trier_statistiques(StatJoueur statistiques[], int nb) {
 }
 
 
-// Affiche le classement (médailles or/argent/bronze pour les 3 premiers)
+// Affiche le classement
 void statistiques_afficher_classement(StatJoueur statistiques[], int nb) {
     int i;
     StatJoueur copie[MAX_JOUEURS_FICHIER];
@@ -151,7 +153,7 @@ void statistiques_afficher_classement(StatJoueur statistiques[], int nb) {
     for (i = 0; i < nb; i++) {
         copie[i] = statistiques[i];
     }
-    trier_statistiques(copie, nb);
+    statistiques_trier(copie, nb);
 
     for (i = 0; i < nb; i++) {
         printf("              #%d  %-15s  —  %s%d partie(s)%s  -  %s%d victoire(s)%s\n",

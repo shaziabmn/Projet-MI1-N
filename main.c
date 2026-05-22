@@ -32,7 +32,7 @@ int main() {
     int         memes_joueurs   = 0; // 1 = on rejoue avec les mêmes joueurs
 
     // Initialise le générateur de nombres aléatoires avec l'heure actuelle
-    srand((unsigned int)time(NULL));
+    srand(time(NULL));
 
     statistiques_charger(statistiques, &nb_statistiques);
 
@@ -84,11 +84,11 @@ int main() {
                 jouer_tour(&jeu);
             }
 
-            // Fin de partie : révèle tout le plateau et l'affiche
+            // Révèle tout le plateau et l'affiche
             reveler_tout(&jeu);
             afficher_plateau(&jeu);
 
-            // Affichage du résultat (victoire ou abandon)
+            // Affichage du résultat 
             if (jeu.gagnant >= 0) {
                 printf("\n");
                 printf(GRAS_BLANC  "                             ┌─────────────────────────┐\n" REINIT);
@@ -109,12 +109,12 @@ int main() {
                 printf("\n");
             }
 
-            // Enregistrement des statistiques (le gagnant est NOM_AUCUN_GAGNANT si abandon)
+            // Enregistrement des statistiques
             char *nom_gagnant;
             if (jeu.gagnant >= 0) {
                 nom_gagnant = jeu.joueurs[jeu.gagnant].nom;
             } else {
-                nom_gagnant = NOM_AUCUN_GAGNANT;
+                nom_gagnant = NULL;
             }
 
             statistiques_enregistrer_partie(statistiques, &nb_statistiques, &jeu, nom_gagnant);
@@ -138,13 +138,10 @@ int main() {
 
             if (post_choix == 1) {        // Rejouer avec les mêmes joueurs
                 memes_joueurs = 1;
-                rejouer       = 1;
             } else if (post_choix == 2) { // Choisir de nouveaux joueurs
                 memes_joueurs = 0;
-                rejouer       = 1;
             } else {                      // Retour au menu principal
-                rejouer   = 0;
-                dans_menu = 1;
+                rejouer = 0;
             }
         }
     }

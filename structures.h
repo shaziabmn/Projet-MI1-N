@@ -10,17 +10,13 @@
 #define NB_JOUEURS_MAX  4
 
 // Nombre maximum de joueurs enregistrés dans le fichier de statistiques
-#define MAX_JOUEURS_FICHIER  64
+#define MAX_JOUEURS_FICHIER  100
 
 // Taille maximale d'un nom
 #define NOM_MAX         16
 
 // Nom du fichier de sauvegarde des statistiques
 #define FICHIER_STATS   "joueurs.dat"
-
-// Nom utilisé quand une partie se termine sans gagnant (abandon)
-#define NOM_AUCUN_GAGNANT "Personne"
-
 
 // Types de cases du plateau
 #define CASE_BASILIC    0   
@@ -97,5 +93,6 @@ typedef struct {
     int  parties;      // Nombre total de parties jouées
     int  victoires;    // Nombre de victoires
 } StatJoueur;
+
 
 #endif

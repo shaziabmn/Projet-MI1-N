@@ -27,7 +27,7 @@ const char *nom_case(int type) {
         case CASE_TROLL:    return "Troll 👹";
         case CASE_HARPIE:   return "Harpie 🦅";
         case CASE_COFFRE:   return "Coffre au trésor 💰";
-        case CASE_EPEE_FEU: return "Epée de feu 🗡";
+        case CASE_EPEE_FEU: return "Épée de feu 🗡";
         case CASE_BATON:    return "Bâton de contrôle des familiers 🪃";
         case CASE_GRIMOIRE: return "Grimoire interdit 📖";
         case CASE_DAGUE:    return "Dague de sommeil 🔪";
@@ -89,6 +89,15 @@ int case_jouable(Jeu *jeu, int ligne, int colonne) {
 }
 
 
+// Retourne 1 si aucune des 4 cases voisines n'est jouable
+int est_bloque(Jeu *jeu, int ligne, int col) {
+    return !case_jouable(jeu, ligne-1, col) &&
+           !case_jouable(jeu, ligne+1, col) &&
+           !case_jouable(jeu, ligne, col-1) &&
+           !case_jouable(jeu, ligne, col+1);
+}
+
+
 // Gère le totem : le joueur choisit une case cachée à échanger avec le totem
 void gerer_totem(Jeu *jeu, int ligne, int col) {
     printf("\n\n");
@@ -140,7 +149,7 @@ void gerer_totem(Jeu *jeu, int ligne, int col) {
 
 // Affiche les 4 armes disponibles et l'option d'abandon
 int choisir_arme(Jeu *jeu) {
-    Joueur *jou = &jeu->joueurs[jeu->joueur_actuel];
+    Joueur *j = &jeu->joueurs[jeu->joueur_actuel];
 
     printf("\n\n");
     printf(GRAS_BLANC "                             ┌─────────────────────────┐\n" REINIT);
@@ -152,7 +161,7 @@ int choisir_arme(Jeu *jeu) {
     printf(GRAS_BLANC "                         3️⃣ . Hache de pierre 🪓        (Troll 👹)\n" REINIT);
     printf(GRAS_BLANC "                         4️⃣ . Arc long 🏹               (Harpie 🦅)\n" REINIT);
     printf(GRAS_BLANC "                         0️⃣ . Abandonner la partie 🏳\n\n" REINIT);
-
+    
     printf(GRAS_CYAN   "\n  De quelle arme voulez-vous vous munir (0 à 4) ?   👉  "REINIT);
 
     int choix = lire_entier(0, 4);
@@ -161,8 +170,8 @@ int choisir_arme(Jeu *jeu) {
     }
 
     // Stocke l'arme choisie dans le joueur
-    jou->arme_active = choix - 1;
-    printf("  ✦ Votre arme : %s\n\n", nom_arme(jou->arme_active));
+    j->arme_active = choix - 1;
+    printf("  ✦ Votre arme : %s\n\n", nom_arme(j->arme_active));
     return 1;
 }
 
@@ -184,19 +193,16 @@ int toutes_cases_cachees(Jeu *jeu, int lignes[], int cols[]) {
 }
 
 
-// Étape 2 : le joueur choisit une case adjacente à révéler.
+// Étape 2 : le joueur choisit une case voisine à révéler.
 // Retourne 1 si une case a été choisie, 0 si le joueur est bloqué.
 int choisir_direction(Jeu *jeu, int *ligne_choisie, int *col_choisie) {
-    Joueur *jou = &jeu->joueurs[jeu->joueur_actuel];
-    int l = jou->ligne; // Ligne actuelle du joueur
-    int c = jou->col;   // Colonne actuelle du joueur
+    Joueur *j = &jeu->joueurs[jeu->joueur_actuel];
+    int l = j->ligne; // Ligne actuelle du joueur
+    int c = j->col;   // Colonne actuelle du joueur
     int nl, nc, choix;
 
     // Vérifie qu'au moins une direction est jouable
-    if (!case_jouable(jeu, l-1, c) &&
-        !case_jouable(jeu, l+1, c) &&
-        !case_jouable(jeu, l, c-1) &&
-        !case_jouable(jeu, l, c+1)) {
+    if (est_bloque(jeu, l, c)) {
         return 0; // Bloqué : aucune case disponible
     }
 
@@ -242,14 +248,9 @@ int choisir_direction(Jeu *jeu, int *ligne_choisie, int *col_choisie) {
         else if (choix == 3) { nc = c - 1; } // Gauche
         else if (choix == 4) { nc = c + 1; } // Droite
 
-        // Vérifie que la case candidate est dans le plateau
-        if (nl < 0 || nl >= TAILLE_PLATEAU || nc < 0 || nc >= TAILLE_PLATEAU) {
-            printf(GRAS_ROUGE "  ❌ Bord du plateau ! Choisissez une autre direction :   👉  " REINIT);
-            continue;
-        }
-        // Vérifie que la case n'est pas déjà révélée
-        if (jeu->plateau[nl][nc].revelee) {
-            printf(GRAS_ROUGE "  ❌ Case déjà révélée ! Choisissez une autre direction :   👉  " REINIT);
+        // Vérifie que la case candidate est jouable (dans le plateau ET pas révélée)
+        if (!case_jouable(jeu, nl, nc)) {
+            printf(GRAS_ROUGE "  ❌ Direction impossible. Choisissez une autre direction :   👉  " REINIT);
             continue;
         }
         // Direction valide : on retourne les coordonnées
@@ -260,8 +261,7 @@ int choisir_direction(Jeu *jeu, int *ligne_choisie, int *col_choisie) {
 }
 
 
-// Portail magique : le joueur peut choisir n'importe quelle case cachée.
-// Retourne 1 si un choix a été fait, 0 si plus aucune case n'est cachée.
+// Portail magique (le joueur peut choisir n'importe quelle case cachée)
 int choisir_case_quelconque(Jeu *jeu, int *ligne_choisie, int *col_choisie) {
     int lignes[NB_CASES], cols[NB_CASES];
     int count = toutes_cases_cachees(jeu, lignes, cols);
@@ -307,7 +307,7 @@ int resoudre_case(Jeu *jeu, int ligne, int col, int *portail_actif) {
 
     printf(GRAS_JAUNE"\n  ✦ Carte révélée : %s\n"REINIT, nom_case(type));
 
-    // --- Monstre ---
+    // Monstre 
     if (est_monstre(type)) {
         if (arme_vainc_monstre(j->arme_active, type)) {
             printf(GRAS_VERT"  ✅ Votre %s vainc le monstre. Continuez !\n"REINIT, nom_arme(j->arme_active));
@@ -344,7 +344,7 @@ int resoudre_case(Jeu *jeu, int ligne, int col, int *portail_actif) {
     // Portail
     else if (type == CASE_PORTAIL) {
         printf("  🌌 Portail ! Vous pouvez vous téléporter sur n'importe quelle case cachée.\n");
-        *portail_actif = 1; 
+        *portail_actif = 1;
     }
 
     // Totem 
@@ -360,12 +360,8 @@ int resoudre_case(Jeu *jeu, int ligne, int col, int *portail_actif) {
         return TOUR_VICTOIRE;
     }
 
-    // Joueur bloqué 
-    int bloque = !case_jouable(jeu, j->ligne-1, j->col) &&
-                 !case_jouable(jeu, j->ligne+1, j->col) &&
-                 !case_jouable(jeu, j->ligne, j->col-1) &&
-                 !case_jouable(jeu, j->ligne, j->col+1);
-    if (bloque && !(*portail_actif)) {
+    // Joueur bloqué
+    if (est_bloque(jeu, j->ligne, j->col) && !(*portail_actif)) {
         printf("  🚧 Plus de direction possible. Fin du tour.\n");
         return TOUR_BLOQUE;
     }
@@ -374,20 +370,18 @@ int resoudre_case(Jeu *jeu, int ligne, int col, int *portail_actif) {
 }
 
 
-// Joue un tour complet pour le joueur actuel :
-// choix arme → choix case → résolution, jusqu'à mort/victoire/blocage/abandon.
-int jouer_tour(Jeu *jeu) {
+// Joue un tour pour le joueur actuel 
+void jouer_tour(Jeu *jeu) {
     Joueur *j       = &jeu->joueurs[jeu->joueur_actuel];
-    int     resultat   = TOUR_CONTINUE;
-    int     portail    = 0; // 1 si le portail est actif ce tour
+    int     resultat       = TOUR_CONTINUE;
+    int     portail  = 0; // 1 si le portail est actif ce tour
 
     // Affiche le plateau au début du tour
     afficher_plateau(jeu);
 
     printf("\n\n");
     printf(GRAS_BLANC "                             ┌─────────────────────────┐\n" REINIT);
-    printf("%s                             ✦   🎲 TOUR DU JOUEUR %d   ✦%s\n",
-           couleur_joueur(jeu->joueur_actuel), jeu->joueur_actuel + 1, REINIT);
+    printf(         "%s                             ✦   🎲 TOUR DU JOUEUR %d   ✦%s\n", couleur_joueur(jeu->joueur_actuel), jeu->joueur_actuel + 1, REINIT);
     printf(GRAS_BLANC "                             └─────────────────────────┘\n\n" REINIT);
     printf("  Appuyez sur " GRAS_CYAN "ENTRER" REINIT " pour commencer...   👉  ");
     vider_buffer();
@@ -410,7 +404,7 @@ int jouer_tour(Jeu *jeu) {
             trouve = choisir_case_quelconque(jeu, &ligne, &col);
             portail = 0; // Le portail n'est actif qu'un seul coup
         } else {
-            // Déplacement normal : case adjacente uniquement
+            // Déplacement normal : case voisine uniquement
             trouve = choisir_direction(jeu, &ligne, &col);
         }
 
@@ -454,6 +448,4 @@ int jouer_tour(Jeu *jeu) {
         reinitialiser_plateau(jeu);
         joueur_suivant(jeu);
     }
-
-    return resultat;
 }

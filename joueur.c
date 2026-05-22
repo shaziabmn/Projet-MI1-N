@@ -54,6 +54,8 @@ const char *nom_classe(int classe) {
 // Demande et lit le nom de chaque joueur
 void nom_joueur(Joueur *j, int numero) {
 
+    //Verifier pointeu nul
+
     printf("\n");
     printf(GRAS_BLANC "                             ┌─────────────────────────┐\n" REINIT);
     printf(         "%s                             ✦    👤 AVENTURIER %d      ✦%s\n", couleur_joueur(numero - 1), numero, REINIT);
@@ -62,43 +64,15 @@ void nom_joueur(Joueur *j, int numero) {
     printf("%s  Entrez votre nom (%d caractères max) :   👉  %s",
            couleur_joueur(numero - 1), NOM_MAX - 1, REINIT);
 
-    while (1) {
-        // EOF : on quitte proprement
-        if (scanf("%15s", j->nom) != 1) {
-            printf(ROUGE "  ❌ Saisie annulée. Au revoir !\n");
-            exit(0);
-        }
-        vider_buffer();
-
-        // Refuse un nom vide
-        if (j->nom[0] == '\0') {
-            printf(GRAS_ROUGE "  ❓ Le nom ne peut pas être vide. Entrez votre nom :   👉  " REINIT);
-            continue;
-        }
-
-        // Refuse un nom contenant ';' (caractère réservé pour le format de sauvegarde)
-        int nom_invalide = 0;
-        int k;
-        for (k = 0; j->nom[k] != '\0'; k++) {
-            if (j->nom[k] == ';') {
-                nom_invalide = 1;
-                break;
-            }
-        }
-        if (nom_invalide) {
-            printf(GRAS_ROUGE "  ❓ Le nom ne peut pas contenir ';'. Entrez votre nom :   👉  " REINIT);
-            continue;
-        }
-
-        break;
-    }
+    scanf("%15s", j->nom);
+    vider_buffer();
 }
 
 
-// Vide le reste du buffer d'entrée jusqu'au saut de ligne ou EOF
+// Vide le reste du buffer d'entrée jusqu'au saut de ligne
 void vider_buffer(void) {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+    while ((c = getchar()) != '\n');
 }
 
 
@@ -114,7 +88,7 @@ int lire_entier(int min, int max) {
         }
 
         // Vide le reste du buffer si la saisie dépasse la taille
-        int longueur = (int)strlen(buffer);
+        int longueur = strlen(buffer);
         if (longueur > 0 && buffer[longueur - 1] != '\n') {
             vider_buffer();
         }
