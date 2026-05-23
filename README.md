@@ -1,8 +1,8 @@
 # Memo-RPG — Le Labyrinthe du Donjon
 
-Le but du jeu pour chacun des aventuriers (entre 2 et 4 par partie) 
-est de parcourir le labyrinthe du donjon à la recherche d’un coffre au trésor
-et d’une arme antique, tout en terrassant les monstres ennemis qui s’y trouvent.
+Memo-RPG est un jeu de mémoire au tour par tour codé en C, jouable de 2 à 4 joueurs. 
+Chaque aventurier doit explorer un labyrinthe de 25 cases mélangées aléatoirement 
+pour trouver un coffre au trésor et son arme antique, tout en évitant les monstres.
 
 Réalisé par Cyrine, Marame et Shazia.
 
