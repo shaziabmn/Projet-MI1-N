@@ -11,14 +11,13 @@
 time_t heure_debut = 0;
 
 
-// Enregistre l'heure de début de la manche.
+// Démarre le chronomètre de la manche
 void chrono_demarrer() {
-    heure_debut = time(NULL); // time() retourne le nombre de secondes depuis 1970
+    heure_debut = time(NULL); 
 }
 
 
-// Affiche la durée écoulée depuis le début de la manche 
-// Calcule la différence entre l'heure actuelle et heure_debut.
+// Affiche le temps écoulé depuis chrono_demarrer()
 void chrono_afficher() {
     int total    = time(NULL) - heure_debut; // Secondes écoulées
     int minutes  = total / 60;
@@ -27,7 +26,7 @@ void chrono_afficher() {
 }
 
 
-// Charge les statistiques depuis le fichier joueurs.dat 
+// Charge les statistiques depuis le fichier joueurs.dat
 void statistiques_charger(StatJoueur statistiques[], int *nb) {
     FILE *f;
     char ligne[256];
@@ -53,7 +52,7 @@ void statistiques_charger(StatJoueur statistiques[], int *nb) {
 }
 
 
-// Sauvegarde les statistiques dans le fichier joueurs.dat.
+// Sauvegarde les statistiques dans le fichier joueurs.dat
 void statistiques_sauvegarder(StatJoueur statistiques[], int nb) {
     FILE *f;
     int i;
@@ -71,7 +70,7 @@ void statistiques_sauvegarder(StatJoueur statistiques[], int nb) {
 }
 
 
-// Cherche un joueur par son nom. Le crée s'il n'existe pas. Retourne son indice
+// Cherche un joueur par son nom, le crée s'il n'existe pas
 int statistiques_trouver_ou_creer(StatJoueur statistiques[], int *nb, char *nom) {
     int i;
     for (i = 0; i < *nb; i++) {
@@ -93,7 +92,8 @@ int statistiques_trouver_ou_creer(StatJoueur statistiques[], int *nb, char *nom)
 }
 
 
-// Met à jour les statistiques après une partie et les sauvegarde dans le fichier
+
+// Met à jour les statistiques après une partie et sauvegarde
 void statistiques_enregistrer_partie(StatJoueur statistiques[], int *nb,
                                      Jeu *jeu, char *nom_gagnant) {
     int i, idx;
@@ -106,7 +106,7 @@ void statistiques_enregistrer_partie(StatJoueur statistiques[], int *nb,
         }
     }
 
-    // +1 victoire pour le gagnant (s'il y en a un)
+    // +1 victoire pour le gagnant, s'il y en a un
     if (nom_gagnant != NULL) {
         idx = statistiques_trouver_ou_creer(statistiques, nb, nom_gagnant);
         if (idx >= 0) {
@@ -118,7 +118,7 @@ void statistiques_enregistrer_partie(StatJoueur statistiques[], int *nb,
 }
 
 
-// Trie le tableau par victoires décroissantes (tri à bulles)
+// Trie les statistiques 
 void statistiques_trier(StatJoueur statistiques[], int nb) {
     int i, j;
     StatJoueur tmp;
@@ -134,10 +134,9 @@ void statistiques_trier(StatJoueur statistiques[], int nb) {
 }
 
 
-// Affiche le classement
+// Affiche le classement de tous les joueurs
 void statistiques_afficher_classement(StatJoueur statistiques[], int nb) {
     int i;
-    StatJoueur copie[MAX_JOUEURS_FICHIER];
 
     printf("\n");
     printf(GRAS_BLANC   "                             ┌─────────────────────────┐\n" REINIT);
@@ -149,17 +148,13 @@ void statistiques_afficher_classement(StatJoueur statistiques[], int nb) {
         return;
     }
 
-    // Copie pour ne pas modifier le tableau original
-    for (i = 0; i < nb; i++) {
-        copie[i] = statistiques[i];
-    }
-    statistiques_trier(copie, nb);
+    statistiques_trier(statistiques, nb);
 
     for (i = 0; i < nb; i++) {
         printf("              #%d  %-15s  —  %s%d partie(s)%s  -  %s%d victoire(s)%s\n",
-               i + 1, copie[i].nom,
-               CYAN, copie[i].parties, REINIT,
-               BLEU, copie[i].victoires, REINIT);
+               i + 1, statistiques[i].nom,
+               CYAN, statistiques[i].parties, REINIT,
+               BLEU, statistiques[i].victoires, REINIT);
     }
     printf("\n");
 }

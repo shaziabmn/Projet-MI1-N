@@ -15,7 +15,7 @@ void statistiques_charger(StatJoueur statistiques[], int *nb);
 // Sauvegarde les statistiques dans le fichier joueurs.dat
 void statistiques_sauvegarder(StatJoueur statistiques[], int nb);
 
-// Trouve l'index d'un joueur par son nom, le crée si absent
+// Cherche un joueur par son nom, le crée s'il n'existe pas
 int statistiques_trouver_ou_creer(StatJoueur statistiques[], int *nb, char *nom);
 
 // Met à jour les statistiques après une partie et sauvegarde

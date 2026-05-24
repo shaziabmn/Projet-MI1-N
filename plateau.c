@@ -8,7 +8,7 @@
 #include "plateau.h"
 
 
-// Retourne l'emoji coloré à afficher pour une case 
+// Retourne l'emoji à afficher pour une case
 const char *emoji_case(int type, int revelee) {
     if (!revelee) {
         return " ◈ ";
@@ -30,7 +30,7 @@ const char *emoji_case(int type, int revelee) {
 }
 
 
-// Mélange un tableau d'entiers 
+// Mélange un tableau d'entiers
 void melanger(int *tableau, int taille) {
     int i, j, tmp;
     for (i = taille - 1; i > 0; i--) {
@@ -42,7 +42,7 @@ void melanger(int *tableau, int taille) {
 }
 
 
-// Initialise le plateau avec les 25 cartes mélangées aléatoirement
+// Initialise les 25 cartes mélangées aléatoirement
 void init_plateau(Jeu *jeu) {
     int paquet[NB_CASES] = {
         CASE_BASILIC, CASE_BASILIC, CASE_BASILIC, CASE_BASILIC,
@@ -73,8 +73,8 @@ void init_plateau(Jeu *jeu) {
 }
 
 
-// Affiche la légende des emojis sous le plateau
-void afficher_legende_plateau(void) {
+// Affiche la légende 
+void afficher_legende_plateau() {
     printf(GRAS_JAUNE"\n                           ✦ ───────── LÉGENDE ───────── ✦\n\n"REINIT);
 
     printf(           "                  🐍 = Basilic  🧟 = Zombie   👹 = Troll  🦅= Harpie\n");
@@ -85,7 +85,7 @@ void afficher_legende_plateau(void) {
 }
 
 
-// Affiche le plateau, le chrono, les joueurs autour de la grille et le bandeau
+// Affiche le plateau avec couleurs, position des joueurs et chrono
 void afficher_plateau(Jeu *jeu) {
     int i, j;
 
@@ -101,7 +101,7 @@ void afficher_plateau(Jeu *jeu) {
     chrono_afficher();
     printf("\n");
 
-    // J1 toujours au-dessus de la colonne 2
+    // J1 au-dessus de la colonne 2
     if (jeu->nb_joueurs >= 1) {
         printf("                                        %s%s\n" REINIT,
                couleur_joueur(0), emoji_classe(jeu->joueurs[0].classe));
@@ -151,7 +151,7 @@ void afficher_plateau(Jeu *jeu) {
 
         printf("\n");
 
-        // Séparateur entre les lignes 
+        // Séparateur entre les lignes
         if (i < TAILLE_PLATEAU - 1) {
             printf("                               ├");
             for (j = 0; j < TAILLE_PLATEAU; j++) {
@@ -174,7 +174,7 @@ void afficher_plateau(Jeu *jeu) {
     }
     printf("┘\n");
 
-    // J2 toujours en dessous de la colonne 2
+    // J2 en dessous de la colonne 2
     if (jeu->nb_joueurs >= 2) {
         printf("                                        %s%s\n" REINIT, couleur_joueur(1), emoji_classe(jeu->joueurs[1].classe));
     } else {
@@ -187,7 +187,7 @@ void afficher_plateau(Jeu *jeu) {
     for (i = 0; i < jeu->nb_joueurs; i++) {
         Joueur *jou = &jeu->joueurs[i];
 
-        // Emoji représentant l'objectif (arme antique recherchée)
+        // Emoji de l'arme antique recherchée
         const char *cible_emoji = "❓";
         switch (jou->classe) {
             case CLASSE_GUERRIER: cible_emoji = "🗡 "; break;
@@ -224,7 +224,6 @@ void afficher_plateau(Jeu *jeu) {
 
 
 // Cache toutes les cartes et renvoie le joueur actuel à sa position de départ
-// Appelé après chaque mort, blocage ou totem.
 void reinitialiser_plateau(Jeu *jeu) {
     int i, j;
     for (i = 0; i < TAILLE_PLATEAU; i++) {

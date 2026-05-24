@@ -19,31 +19,31 @@
 #define FICHIER_STATS   "joueurs.dat"
 
 // Types de cases du plateau
-#define CASE_BASILIC    0   
-#define CASE_ZOMBIE     1  
-#define CASE_TROLL      2   
-#define CASE_HARPIE     3   
-#define CASE_COFFRE     4   
-#define CASE_EPEE_FEU   5   
-#define CASE_BATON      6   
-#define CASE_GRIMOIRE   7   
-#define CASE_DAGUE      8   
-#define CASE_PORTAIL    9   
-#define CASE_TOTEM      10  
+#define CASE_BASILIC    0
+#define CASE_ZOMBIE     1
+#define CASE_TROLL      2
+#define CASE_HARPIE     3
+#define CASE_COFFRE     4
+#define CASE_EPEE_FEU   5
+#define CASE_BATON      6
+#define CASE_GRIMOIRE   7
+#define CASE_DAGUE      8
+#define CASE_PORTAIL    9
+#define CASE_TOTEM      10
 
 
-// Armes choisies à chaque tour 
-#define ARME_BOUCLIER   0   
-#define ARME_TORCHE     1   
-#define ARME_HACHE      2   
-#define ARME_ARC        3  
+// Armes choisies à chaque tour
+#define ARME_BOUCLIER   0
+#define ARME_TORCHE     1
+#define ARME_HACHE      2
+#define ARME_ARC        3
 
 
 // Classes des aventuriers
-#define CLASSE_GUERRIER 0   
-#define CLASSE_RANGER   1  
-#define CLASSE_MAGICIEN 2   
-#define CLASSE_VOLEUR   3   
+#define CLASSE_GUERRIER 0
+#define CLASSE_RANGER   1
+#define CLASSE_MAGICIEN 2
+#define CLASSE_VOLEUR   3
 
 
 // Résultats possibles d'un tour
@@ -64,30 +64,30 @@ typedef struct {
 
 // Structure d'un joueur
 typedef struct {
-    char nom[NOM_MAX];   // Nom du joueur 
-    int  classe;         // Classe du joueur 
+    char nom[NOM_MAX];   // Nom du joueur
+    int  classe;         // Classe du joueur
     int  ligne_depart;   // Ligne de départ (hors plateau)
     int  col_depart;     // Colonne de départ (hors plateau)
-    int  ligne;          // Ligne actuelle du joueur 
-    int  col;            // Colonne actuelle du joueur 
+    int  ligne;          // Ligne actuelle du joueur
+    int  col;            // Colonne actuelle du joueur
     int  a_coffre;       // 1 = le joueur a trouvé le coffre, 0 sinon
     int  a_arme;         // 1 = le joueur a trouvé son arme antique, 0 sinon
     int  arme_active;    // Arme choisie
 } Joueur;
 
 
-// Structure de l'état du jeu 
+// Structure de l'état du jeu
 typedef struct {
     Case   plateau[TAILLE_PLATEAU][TAILLE_PLATEAU]; // Grille 5x5 de cases
     Joueur joueurs[NB_JOUEURS_MAX];                 // Tableau des joueurs
-    int    nb_joueurs;    // Nombre de joueurs dans la partie (2 à 4)
-    int    joueur_actuel; // Indice du joueur dont c'est le tour 
-    int    partie_finie;  // 1 = la partie est terminée, 0 = en cours
-    int    gagnant;       // Indice du gagnant, ou -1 si pas de gagnant
+    int    nb_joueurs;                              // Nombre de joueurs dans la partie (2 à 4)
+    int    joueur_actuel;                           // Indice du joueur dont c'est le tour
+    int    partie_finie;                            // 1 = la partie est terminée, 0 = en cours
+    int    gagnant;                                 // Indice du gagnant, ou -1 si pas de gagnant
 } Jeu;
 
 
-// Structure pour les statistiques d'un joueur 
+// Structure pour les statistiques d'un joueur
 typedef struct {
     char nom[NOM_MAX]; // Nom du joueur
     int  parties;      // Nombre total de parties jouées

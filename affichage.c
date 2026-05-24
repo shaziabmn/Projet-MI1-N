@@ -5,7 +5,7 @@
 // Affiche l'écran d'accueil
 void afficher_jeu() {
 
-    clrscr(); 
+    clrscr();
     printf("\n");
     printf(GRAS_VERT"             ･✧･ﾟ: *✧･ﾟ:* ･ﾟ✧･ﾟ: *✧･ﾟ:*･ﾟ✧･ﾟ: *✧･ﾟ:* ･ﾟ✧･ﾟ: *✧･ﾟ:* ･ﾟ:* ･\n"REINIT);
     printf(GRAS_VERT"             ✦"REINIT" ╔══════════════════════════════════════════════════════╗ "GRAS_VERT"✦\n"REINIT);
@@ -21,15 +21,13 @@ void afficher_jeu() {
 
     printf("  Appuyez sur " GRAS_CYAN "ENTRER" REINIT " pour continuer...   👉  ");
     vider_buffer();
-
-    clrscr(); 
 }
 
 
-// Affiche le menu principal 
+// Affiche le menu principal
 void afficher_menu() {
 
-    clrscr(); 
+    clrscr();
     printf("\n");
     printf(GRAS_BLANC "                             ┌─────────────────────────┐\n" REINIT);
     printf(GRAS_CYAN  "                             ✦    📜 MENU PRINCIPAL    ✦\n" REINIT);
@@ -54,7 +52,7 @@ void afficher_regles() {
 
     FILE *f = fopen("regles.txt", "r");
     if (f == NULL) {
-        printf(ROUGE "\n  Fichier regles.txt introuvable.\n" REINIT);
+        printf(ROUGE "\n  ❓ Fichier regles.txt introuvable.\n" REINIT);
     } else {
         char ligne[256];
         while (fgets(ligne, sizeof(ligne), f) != NULL) {

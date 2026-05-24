@@ -4,7 +4,7 @@
 
 #include "structures.h"
 
-// Retourne le nom de l'arme choisie
+// Retourne le nom de l'arme
 const char *nom_arme(int arme);
 
 // Retourne le nom de la case

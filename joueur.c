@@ -15,7 +15,7 @@ const int LIGNES_DEPART[4] = {-1,  5,  2,  2};
 const int COLS_DEPART[4]   = { 2,  2, -1,  5};
 
 
-// Retourne la couleur associée à chaque joueur (J1=vert, J2=rouge, J3=cyan, J4=jaune)
+// Couleur attribuée à chaque joueur selon son indice
 const char *couleur_joueur(int idx) {
     switch (idx) {
         case 0: return GRAS_VERT;
@@ -27,7 +27,7 @@ const char *couleur_joueur(int idx) {
 }
 
 
-// Retourne l'emoji associé à la classe du joueur
+// Emoji de la classe d'un joueur
 const char *emoji_classe(int classe) {
     switch (classe) {
         case CLASSE_GUERRIER: return "⚔️  ";
@@ -39,7 +39,7 @@ const char *emoji_classe(int classe) {
 }
 
 
-// Retourne le nom de la classe du joueur
+// Nom de la classe d'un joueur
 const char *nom_classe(int classe) {
     switch (classe) {
         case CLASSE_GUERRIER: return "Guerrier";
@@ -51,10 +51,8 @@ const char *nom_classe(int classe) {
 }
 
 
-// Demande et lit le nom de chaque joueur
+// Demande le nom d'un joueur
 void nom_joueur(Joueur *j, int numero) {
-
-    //Verifier pointeu nul
 
     printf("\n");
     printf(GRAS_BLANC "                             ┌─────────────────────────┐\n" REINIT);
@@ -76,45 +74,21 @@ void vider_buffer(void) {
 }
 
 
-// Lit un entier dans l'intervalle [min, max] de manière sécurisée
+// Lit un entier dans [min, max]
 int lire_entier(int min, int max) {
     int valeur;
-    char buffer[64];
     while (1) {
-        // Ctrl+D : on quitte proprement
-        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-            printf(ROUGE "  ❌ Saisie annulée. Au revoir !\n");
-            exit(0);
-        }
-
-        // Vide le reste du buffer si la saisie dépasse la taille
-        int longueur = strlen(buffer);
-        if (longueur > 0 && buffer[longueur - 1] != '\n') {
+        if (scanf("%d", &valeur) == 1 && valeur >= min && valeur <= max) {
             vider_buffer();
-        }
-
-        if (sscanf(buffer, "%d", &valeur) == 1 &&
-            valeur >= min && valeur <= max)
             return valeur;
-
+        }
+        vider_buffer();
         printf(ROUGE "  ❓ Choix invalide. Veuillez entrer un nombre entre %d et %d :  👉  " REINIT, min, max);
     }
 }
 
 
-// Retourne 1 si le nom est déjà utilisé par un joueur précédent, 0 sinon
-int nom_deja_pris(Jeu *jeu, int nb_saisis, char *nom) {
-    int j;
-    for (j = 0; j < nb_saisis; j++) {
-        if (strcmp(jeu->joueurs[j].nom, nom) == 0) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-
-// Demande le nombre de joueurs, leurs noms, assigne classes et positions
+// Demande les noms et assigne classes et positions des joueurs
 void init_joueurs(Jeu *jeu) {
     int i;
 
@@ -135,17 +109,11 @@ void init_joueurs(Jeu *jeu) {
     for (i = 0; i < jeu->nb_joueurs; i++) {
         nom_joueur(&jeu->joueurs[i], i + 1);
 
-        // Refuse les noms déjà pris par un joueur précédent
-        while (nom_deja_pris(jeu, i, jeu->joueurs[i].nom)) {
-            printf(GRAS_ROUGE "  ❌ Ce nom est déjà pris ! Choisissez un autre nom.\n" REINIT);
-            nom_joueur(&jeu->joueurs[i], i + 1);
-        }
-
         // La classe est assignée automatiquement selon l'indice du joueur
         jeu->joueurs[i].classe = i;
         printf("  ✦ Classe assignée : %s %s\n", emoji_classe(i), nom_classe(i));
 
-        // Placement à la position de départ (hors plateau)
+        // Placement à la position de départ
         jeu->joueurs[i].ligne_depart = LIGNES_DEPART[i];
         jeu->joueurs[i].col_depart   = COLS_DEPART[i];
         jeu->joueurs[i].ligne        = LIGNES_DEPART[i];
@@ -160,7 +128,7 @@ void init_joueurs(Jeu *jeu) {
 }
 
 
-// Remet les joueurs à leur position de départ (sans redemander les noms)
+// Remet les joueurs à leur position de départ sans redemander les noms
 void reinit_joueurs_pour_rejouer(Jeu *jeu) {
     int i;
     for (i = 0; i < jeu->nb_joueurs; i++) {
@@ -176,7 +144,7 @@ void reinit_joueurs_pour_rejouer(Jeu *jeu) {
 }
 
 
-// Passe au joueur suivant 
+// Passe au joueur suivant
 void joueur_suivant(Jeu *jeu) {
     jeu->joueur_actuel = jeu->joueur_actuel + 1;
     if (jeu->joueur_actuel >= jeu->nb_joueurs) {

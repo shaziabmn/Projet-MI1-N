@@ -13,10 +13,10 @@ const char *emoji_classe(int classe);
 // Nom de la classe d'un joueur
 const char *nom_classe(int classe);
 
-// Lit un entier dans [min, max] de manière sécurisée
+// Lit un entier dans [min, max]
 int lire_entier(int min, int max);
 
-// Vide le reste du buffer d'entrée jusqu'au saut de ligne ou EOF
+// Vide le reste du buffer d'entrée jusqu'au saut de ligne
 void vider_buffer(void);
 
 // Demande le nom d'un joueur

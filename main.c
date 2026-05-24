@@ -11,7 +11,7 @@
 #include "statistiques.h"
 
 
-// Révèle toutes les cases du plateau (appelée en fin de partie)
+// Révèle toutes les cases du plateau 
 void reveler_tout(Jeu *jeu) {
     int i, j;
     for (i = 0; i < TAILLE_PLATEAU; i++) {
@@ -27,9 +27,6 @@ int main() {
     Jeu         jeu;
     StatJoueur  statistiques[MAX_JOUEURS_FICHIER];
     int         nb_statistiques = 0;
-    int         dans_menu       = 1; // 1 = on reste dans le menu principal
-    int         rejouer         = 0; // 1 = on relance une partie
-    int         memes_joueurs   = 0; // 1 = on rejoue avec les mêmes joueurs
 
     // Initialise le générateur de nombres aléatoires avec l'heure actuelle
     srand(time(NULL));
@@ -39,13 +36,12 @@ int main() {
     afficher_jeu();
 
     // Boucle du menu principal
-    while (dans_menu) {
+    while (1) {
         afficher_menu();
 
         int choix_menu = lire_entier(1, 4);
 
         if (choix_menu == 4) {  // Quitte le jeu
-            dans_menu = 0;
             break;
         }
 
@@ -59,13 +55,12 @@ int main() {
             statistiques_afficher_classement(statistiques, nb_statistiques);
             printf("\n  Appuyez sur " GRAS_CYAN "ENTRER" REINIT " pour revenir au menu...   👉  ");
             vider_buffer();
-            clrscr();
             continue;
         }
 
         // Choix 1 : lancer une nouvelle partie
-        rejouer       = 1;
-        memes_joueurs = 0;
+        int rejouer       = 1;
+        int memes_joueurs = 0;
 
         // Boucle de parties (permet de rejouer sans repasser par le menu)
         while (rejouer) {
@@ -88,7 +83,7 @@ int main() {
             reveler_tout(&jeu);
             afficher_plateau(&jeu);
 
-            // Affichage du résultat 
+            // Affichage du résultat
             if (jeu.gagnant >= 0) {
                 printf("\n");
                 printf(GRAS_BLANC  "                             ┌─────────────────────────┐\n" REINIT);
@@ -130,17 +125,14 @@ int main() {
             printf(GRAS_CYAN  "                             ✦   🔄 MENU POST-PARTIE   ✦\n" REINIT);
             printf(GRAS_BLANC "                             └─────────────────────────┘\n\n" REINIT);
             printf(GRAS_CYAN  "                           1️⃣ . Repartir à l'aventure 🚪\n");
-            printf(           "                           2️⃣ . Changer d'aventuriers 🌀\n");
-            printf(           "                           3️⃣ . Retour au menu principal 📜\n\n" REINIT);
-            printf(GRAS_CYAN "\n  Appuyez sur 1, 2 ou 3 pour choisir :   👉  " REINIT);
+            printf(           "                           2️⃣ . Retour au menu principal 📜\n\n" REINIT);
+            printf(GRAS_CYAN "\n  Appuyez sur 1 ou 2 pour choisir :   👉  " REINIT);
 
-            int post_choix = lire_entier(1, 3);
+            int post_choix = lire_entier(1, 2);
 
-            if (post_choix == 1) {        // Rejouer avec les mêmes joueurs
+            if (post_choix == 1) {  // Rejouer avec les mêmes joueurs
                 memes_joueurs = 1;
-            } else if (post_choix == 2) { // Choisir de nouveaux joueurs
-                memes_joueurs = 0;
-            } else {                      // Retour au menu principal
+            } else {                // Retour au menu principal
                 rejouer = 0;
             }
         }
